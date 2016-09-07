@@ -1,17 +1,15 @@
 const breakPoints = ['xs', 'sm', 'md', 'lg'];
 
-const getNearPossibleBreakPoint = (className, breakPoint) => {
+const getNearPossibleBreakPoint = (breakPoint, className) => {
 	if (new RegExp(breakPoint).test(className)) {
 		return breakPoint;
 	} else {
 		const breakPointI = breakPoints.indexOf(breakPoint);
 		let res;
 		if (breakPointI > 0) {
-			className.split(' ').forEach(cln => {
-				const isThereAnyLower = new RegExp(`${breakPoints.slice(0, breakPointI).join('|')}`).test(cln);
-				if (!res && isThereAnyLower) {
-					res = /col-(\w+)/.exec(cln)[1];
-				}
+			className.split(' ').forEach(cn => {
+				const isThereAnyLower = new RegExp(`${breakPoints.slice(0, breakPointI).join('|')}`).test(cn);
+				if (isThereAnyLower) res = /col-(\w+)/.exec(cn)[1];
 			});
 		} else {
 			res = breakPoints[0];
@@ -21,7 +19,7 @@ const getNearPossibleBreakPoint = (className, breakPoint) => {
 };
 
 export const convertClassName = (breakPoint, className) => {
-	const nearBP = getNearPossibleBreakPoint(className, breakPoint);
+	const nearBP = getNearPossibleBreakPoint(breakPoint, className);
 	let bpClassesArr = [];
 	let restClassesArr = [];
 	className.split(' ').forEach(cn => {
@@ -32,8 +30,8 @@ export const convertClassName = (breakPoint, className) => {
 		}
 	});
 	if (bpClassesArr.length > 0) {
-		return [ ...bpClassesArr, ...restClassesArr].join(' ');
+		return [ ...bpClassesArr, ...restClassesArr].join(' ').trim();
 	} else {
-		return restClassesArr.join(' ');
+		return restClassesArr.join(' ').trim();
 	}
 };

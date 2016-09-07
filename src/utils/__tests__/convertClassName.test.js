@@ -1,6 +1,6 @@
 import { convertClassName } from '../convertClassName.js';
 
-describe('convertClassName', () => {
+describe('convertClassName for properly set', () => {
 	const className = "col-xs-6 col-xs-offset-3 col-sm-6 col-md-5 col-md-push-3 col-md-offset-2 col-lg-6 col-lg-offset-0";
 	it('xs', () => {
 		expect(convertClassName('xs', className)).toEqual('col-xs-6 col-xs-offset-3');
@@ -22,4 +22,14 @@ describe('convertClassName', () => {
 		expect(convertClassName('lg', className + ' something other')).toEqual('col-lg-6 col-lg-offset-0 something other');
 	});
 
+});
+
+describe('convertClassName for poorly set', () => {
+	const className = "col-xs-6 col-xs-offset-3 col-md-5 col-md-push-3 col-md-offset-2 something other";
+	it('poor', () => {
+		expect(convertClassName('xs', className)).toEqual('col-xs-6 col-xs-offset-3 something other');
+		expect(convertClassName('sm', className)).toEqual('col-xs-6 col-xs-offset-3 something other');
+		expect(convertClassName('md', className)).toEqual('col-md-5 col-md-push-3 col-md-offset-2 something other');
+		expect(convertClassName('lg', className)).toEqual('col-md-5 col-md-push-3 col-md-offset-2 something other');
+	});
 });
