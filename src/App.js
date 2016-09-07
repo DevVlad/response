@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { getBrPoint, respClassHandler } from './utils/respClassHandler.js';
+import { convertClassName } from './utils/convertClassName.js';
 
 class App extends Component {
 	componentWillMount() {
-		console.log(respClassHandler("col-md-6 col-sm-2", getBrPoint(100)));
+		console.log(convertClassName('lg', "col-sm-6 col-md-5 col-md-offset-2 col-lg-6 col-lg-offset-0"));
 	}
 
   render() {
