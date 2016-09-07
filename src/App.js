@@ -6,7 +6,7 @@ import { convertClassName } from './utils/convertClassName.js';
 
 class App extends Component {
 	componentWillMount() {
-		console.log(convertClassName('xs', "col-xs-6 col-xs-offset-3 col-md-5 col-md-push-3 col-md-offset-2 something other"));
+		console.log(convertClassName('xs', "clearfix visible-xs-block col-xs-6 col-xs-offset-3 col-md-5 col-md-push-3 col-md-offset-2 something other"));
 	}
 
   render() {
