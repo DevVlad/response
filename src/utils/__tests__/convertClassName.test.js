@@ -24,12 +24,12 @@ describe('convertClassName for properly set', () => {
 
 });
 
-describe('convertClassName for poorly set', () => {
-	const className = "col-xs-6 col-xs-offset-3 col-md-5 col-md-push-3 col-md-offset-2 something other";
+describe('convertClassName for generic set', () => {
+	const className = "col-xs-6 col-xs-offset-3 visible-xs-block col-md-5 col-md-push-3 col-md-offset-2 visible-md-block something other";
 	it('poor', () => {
-		expect(convertClassName('xs', className)).toEqual('col-xs-6 col-xs-offset-3 something other');
-		expect(convertClassName('sm', className)).toEqual('col-xs-6 col-xs-offset-3 something other');
-		expect(convertClassName('md', className)).toEqual('col-md-5 col-md-push-3 col-md-offset-2 something other');
-		expect(convertClassName('lg', className)).toEqual('col-md-5 col-md-push-3 col-md-offset-2 something other');
+		expect(convertClassName('xs', className)).toEqual('col-xs-6 col-xs-offset-3 visible-xs-block something other');
+		expect(convertClassName('sm', className)).toEqual('col-xs-6 col-xs-offset-3 visible-xs-block something other');
+		expect(convertClassName('md', className)).toEqual('col-md-5 col-md-push-3 col-md-offset-2 visible-md-block something other');
+		expect(convertClassName('lg', className)).toEqual('col-md-5 col-md-push-3 col-md-offset-2 visible-md-block something other');
 	});
 });
