@@ -1,31 +1,60 @@
 import React, { Component, PropTypes } from 'react';
+import SizeMe from 'react-sizeme';
+
 import ResponsiveItem from './ResponsiveItem.js';
+import { getBreakPoint } from './utils/getBreakPoint.js';
 
 class ResponsiveManager extends Component {
 	static childContextTypes = {
 		breakPoint: PropTypes.string,
-		convertClassName: PropTypes.func
+		browserBreakPoint: PropTypes.string
 	};
 
-	getChildContext() {
-		return {
-			breakPoint: this.props.breakPoint
+	constructor(props) {
+		super(props);
+		this.state = {
+			breakPoint: getBreakPoint(props.size.width),
+			browserBreakPoint: getBreakPoint(props.browserWidth)
 		};
 	}
 
+	getChildContext() {
+		return {
+			breakPoint: this.state.breakPoint,
+			browserBreakPoint: this.state.browserBreakPoint
+		};
+	}
+
+	shouldComponentUpdate(newProps) {
+		console.error(this.state.breakPoint !== getBreakPoint(newProps.size.width));
+		return this.state.breakPoint !== getBreakPoint(newProps.size.width) || this.state.browserBreakPoint !== getBreakPoint(newProps.browserWidth);
+	}
+
+	componentWillReceiveProps(newProps) {
+		const additionalBp = getBreakPoint(newProps.size.width);
+		const browserBreakPoint = getBreakPoint(newProps.browserWidth)
+		if (additionalBp !== this.state.breakPoint || browserBreakPoint !== this.state.browserBreakPoint) {
+			this.setState({
+				breakPoint: additionalBp,
+				browserBreakPoint: browserBreakPoint
+			});
+		}
+	}
+
 	render() {
-		console.log('ResponsiveManager-render');
+		console.log('-------------- ResponsiveManager-render ', this.props.size.width, this.state.breakPoint,' ----------------------------');
 		return (
 			<div className="row">
-					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt1'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt2'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt3'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt4'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt5'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt6'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-6 col-md-6"} msg={'RespIt 1'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-6 col-md-6"} msg={'RespIt 2'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-sm-block col-sm-6 col-md-6"} msg={'RespIt 3'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-sm-block col-sm-6 col-md-6"} msg={'RespIt 4'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-md-block col-sm-6 col-md-4"} msg={'RespIt 5'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-md-block col-sm-6 col-md-4"} msg={'RespIt 6'}/>
+					<ResponsiveItem className={"col-xs-12 col-sm-6 col-md-6 col-lg-4"} msg={'Always visible'}/>
 			</div>
 		);
 	}
 }
 
-export default ResponsiveManager;
+export default SizeMe()(ResponsiveManager);

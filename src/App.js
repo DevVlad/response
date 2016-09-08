@@ -5,31 +5,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SizeMe from 'react-sizeme';
 
 import ResponsiveManager from './ResponsiveManager.js';
-import { getBreakPoint } from './utils/getBreakPoint.js';
 
 class App extends Component {
-	constructor() {
-		super();
-		this.state = {
-			breakPoint: 'lg'
-		};
-	}
-
-	shouldComponentUpdate() {
-		return this.state.breakPoint !==  getBreakPoint(this.props.size.width);
-	}
-
-	componentWillReceiveProps(newProps) {
-		const additionalBp = getBreakPoint(this.props.size.width);
-		if (additionalBp !== this.state.breakPoint) {
-			this.setState({
-				breakPoint: additionalBp
-			});
-		}
-	}
 
 	render() {
-		console.log('App-render');
 		return (
 			<div className="App">
 				<div className="App-header">
@@ -40,11 +19,13 @@ class App extends Component {
 				<div
 					className="container"
 					style={{
-						width: '750px',
+						width: '50%',
 						height: '750px',
-						borderStyle: 'solid'
+						borderStyle: 'solid',
+						position: 'absolute',
+						left:'10px'
 					}}>
-					<ResponsiveManager breakPoint={this.state.breakPoint}/>
+					<ResponsiveManager browserWidth={this.props.size.width}/>
 				</div>
 			</div>
 		);
