@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SizeMe from 'react-sizeme';
 
 import ResponsiveManager from './ResponsiveManager.js';
-import { convertClassName } from './utils/convertClassName.js';
 import { getBreakPoint } from './utils/getBreakPoint.js';
 
 class App extends Component {
@@ -14,10 +13,6 @@ class App extends Component {
 		this.state = {
 			breakPoint: 'lg'
 		};
-	}
-
-	componentWillMount() {
-		console.log(convertClassName('md', "clearfix visible-xs-block col-xs-6 col-xs-offset-3 col-md-5 col-md-push-3 visible-md-block col-md-offset-2 something other"));
 	}
 
 	shouldComponentUpdate() {
@@ -34,6 +29,7 @@ class App extends Component {
 	}
 
 	render() {
+		console.log('App-render');
 		return (
 			<div className="App">
 				<div className="App-header">

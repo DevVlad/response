@@ -14,7 +14,7 @@ class ResponsiveManager extends Component {
 	}
 
 	render() {
-		console.log('ResponsiveManager-render', this.props);
+		console.log('ResponsiveManager-render');
 		return (
 			<div className="row">
 					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt1'}/>
