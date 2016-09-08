@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import { convertClassName } from './utils/convertClassName.js';
+
 class ResponsiveItem extends Component {
 	static contextTypes = {
 	  breakPoint: PropTypes.string
@@ -7,9 +9,10 @@ class ResponsiveItem extends Component {
 
 	render() {
 		return (
-			<div className={this.props.className}>
+			<div className={convertClassName(this.context.breakPoint, this.props.className)}>
 				<h1>{this.props.msg}</h1>
-				<p>current BP - from context: {this.context.breakPoint}</p>
+				<p>current BP - {this.context.breakPoint}</p>
+				<p>current className - {convertClassName(this.context.breakPoint, this.props.className)}</p>
 				{this.props.children}
 			</div>
 		);
