@@ -1,4 +1,4 @@
-const breakPoints = ['xs', 'sm', 'md', 'lg'];
+export const breakPoints = ['xs', 'sm', 'md', 'lg'];
 
 const getNearPossibleBreakPoint = (breakPoint, className) => {
 	if (new RegExp(breakPoint).test(className)) {
@@ -27,7 +27,8 @@ export const convertClassName = (breakPoint, className) => {
 	let restClassesArr = [];
 	className.split(' ').forEach(cn => {
 		if (regCn.test(cn)) {
-			bpClassesArr.push(cn);
+			bpClassesArr.push(nearBP === breakPoints[0] ? cn : cn.replace(nearBP, breakPoints[0]));
+			// bpClassesArr.push(cn);
 		} else {
 			if (!regCnElse.test(cn)) restClassesArr.push(cn);
 		}

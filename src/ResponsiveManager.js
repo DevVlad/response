@@ -9,25 +9,20 @@ class ResponsiveManager extends Component {
 
 	getChildContext() {
 		return {
-			breakPoint: 'sm'
+			breakPoint: this.props.breakPoint
 		};
 	}
 
 	render() {
+		console.log('ResponsiveManager-render', this.props);
 		return (
 			<div className="row">
-				<div className="col-xs-12 col-sm-4 col-md-4">
 					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt1'}/>
 					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt2'}/>
-				</div>
-				<div className="col-xs-12 col-sm-4 col-md-4">
-					<ResponsiveItem className={"col-xs-12 col-sm-12 col-md-6 visible-sm-block"} msg={'RespIt3'}/>
-					<ResponsiveItem className={"col-xs-12 col-sm-12 col-md-6 visible-sm-block"} msg={'RespIt4'}/>
-				</div>
-				<div className="col-xs-12 col-sm-4 col-md-4">
-					<ResponsiveItem className={"col-xs-12 col-sm-12 col-md-6 visible-lg-block"} msg={'RespIt5'}/>
-					<ResponsiveItem className={"col-xs-12 col-sm-12 col-md-6 visible-lg-block"} msg={'RespIt6'}/>
-				</div>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt3'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt4'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt5'}/>
+					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-12 col-md-6"} msg={'RespIt6'}/>
 			</div>
 		);
 	}
