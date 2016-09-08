@@ -9,12 +9,11 @@ class ResponsiveManager extends Component {
 
 	getChildContext() {
 		return {
-			breakPoint: "sm"
+			breakPoint: "md"
 		};
 	}
 
 	render() {
-
 		return (
 			<div className="row">
 				<div className="col-xs-12 col-sm-4 col-md-4">

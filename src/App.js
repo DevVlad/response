@@ -18,8 +18,9 @@ class App extends Component {
 					<h2>Welcome to React</h2>
 				</div>
 				<br/>
-				<ResponsiveManager
-				/>
+				<div className="container" style={{width: '750px', height: '750px', borderStyle: 'solid'}}>
+					<ResponsiveManager />
+				</div>
 			</div>
 		);
 	}
