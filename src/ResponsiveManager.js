@@ -26,7 +26,6 @@ class ResponsiveManager extends Component {
 	}
 
 	shouldComponentUpdate(newProps) {
-		console.error(this.state.breakPoint !== getBreakPoint(newProps.size.width));
 		return this.state.breakPoint !== getBreakPoint(newProps.size.width) || this.state.browserBreakPoint !== getBreakPoint(newProps.browserWidth);
 	}
 
@@ -42,15 +41,15 @@ class ResponsiveManager extends Component {
 	}
 
 	render() {
-		console.log('-------------- ResponsiveManager-render ', this.props.size.width, this.state.breakPoint,' ----------------------------');
+		console.log('-------------- ResponsiveManager-render ', this.props.size.width, this.state.breakPoint, this.state.browserBreakPoint,' ----------------------------');
 		return (
 			<div className="row">
-					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-6 col-md-6"} msg={'RespIt 1'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-xs-block col-sm-6 col-md-6"} msg={'RespIt 2'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-sm-block col-sm-6 col-md-6"} msg={'RespIt 3'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-sm-block col-sm-6 col-md-6"} msg={'RespIt 4'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-md-block col-sm-6 col-md-4"} msg={'RespIt 5'}/>
-					<ResponsiveItem className={"col-xs-12 clearfix visible-md-block col-sm-6 col-md-4"} msg={'RespIt 6'}/>
+					<ResponsiveItem className={"col-xs-12 visible-xs-block col-sm-6 col-md-6"} msg={'RespIt 1'}/>
+					<ResponsiveItem className={"col-xs-12 visible-xs-block col-sm-6 col-md-6"} msg={'RespIt 2'}/>
+					<ResponsiveItem className={"col-xs-12 visible-sm-block col-sm-6 col-md-6"} msg={'RespIt 3'}/>
+					<ResponsiveItem className={"col-xs-12 visible-sm-block col-sm-6 col-md-6"} msg={'RespIt 4'}/>
+					<ResponsiveItem className={"col-xs-12 visible-md-block col-sm-6 col-md-4"} msg={'RespIt 5'}/>
+					<ResponsiveItem className={"col-xs-12 visible-md-block col-sm-6 col-md-4"} msg={'RespIt 6'}/>
 					<ResponsiveItem className={"col-xs-12 col-sm-6 col-md-6 col-lg-4"} msg={'Always visible'}/>
 			</div>
 		);

@@ -3,6 +3,10 @@ const colAppendixs = ['offset', 'push', 'pull'];
 const colReplacers = ['visible', 'hidden'];
 const colReplacersAppendixs = ['block', 'inline', 'inline-block'];
 
+const regCols = new RegExp(`col-(${breakPoints.join('|')})-((${colAppendixs.join('|')})-(\d{1,2}))?(\d{1,2})?`);
+const regColReplacers = new RegExp(`(${colReplacers.join('|')})-(${breakPoints.join('|')})-(${colReplacersAppendixs.join('|')})`);
+const regBreakPoints = new RegExp(`(${breakPoints.join('|')})`);
+
 const smallestBreakPoint = breakPoints[0];
 
 const getNearPossibleBreakPoint = (breakPoint, className) => {
@@ -24,10 +28,6 @@ const getNearPossibleBreakPoint = (breakPoint, className) => {
 	}
 };
 
-const regCols = new RegExp(`col-(${breakPoints.join('|')})-((${colAppendixs.join('|')})-(\d{1,2}))?(\d{1,2})?`);
-const regVisHid = new RegExp(`(${colReplacers.join('|')})-(${breakPoints.join('|')})-(${colReplacersAppendixs.join('|')})`);
-const regBreakPoints = new RegExp(`(${breakPoints.join('|')})`);
-
 export const convertClassName = (breakPoint, browserBreakPoint, className) => {
 	const nearBP = getNearPossibleBreakPoint(breakPoint, className);
 	const regBp = new RegExp(`col-${nearBP}-((${colAppendixs.join('|')})-(\d{1,2}))?(\d{1,2})?`);
@@ -36,50 +36,40 @@ export const convertClassName = (breakPoint, browserBreakPoint, className) => {
 	className.split(' ').forEach(cn => {
 		if (regBp.test(cn)) {
 			//	all cn for PB
+			// if (nearBP === breakPoint) {
+			// 	// replace all classNames depending to current BR
+			// 	bpClassesArr.push(cn.replace(nearBP, smallestBreakPoint));
+			// } else {
+			// 	// replace only format col-"something"-number
+			// 	if (regNearBpReplace.test(cn)) {
+			// 		bpClassesArr.push(cn.replace(nearBP, smallestBreakPoint));
+			// 	}
+			// }
 			bpClassesArr.push(cn.replace(nearBP, smallestBreakPoint));
 		} else {
-			if (regVisHid.test(cn)) {
+			if (regColReplacers.test(cn)) {
 				//	visible or hidden found
 				if (new RegExp(nearBP).test(cn)) {
 					//	if vis/hid option is for this BP
-					console.log('y---', cn, 'BP: ',breakPoint, nearBP, "brows: ",browserBreakPoint);
 					bpClassesArr.push(cn.replace(nearBP, browserBreakPoint));
 				} else {
-					const currentColRepl = regBreakPoints.exec(cn)[1];
-					let fakeBreakPoint = breakPoints[breakPoints.indexOf(browserBreakPoint) + 1] || breakPoints[breakPoints.indexOf(browserBreakPoint) - 1];
-					console.log('n---', cn,'BP: ', breakPoint, nearBP,"brows: ", browserBreakPoint,'fake', fakeBreakPoint);
-					restClassesArr.push(
-						cn.replace(currentColRepl, fakeBreakPoint)
-					);
+					const currentBreakPoint = regBreakPoints.exec(cn)[1];
+					let fakeBreakPoint;
+					if (currentBreakPoint === browserBreakPoint) {
+						fakeBreakPoint = breakPoints[breakPoints.indexOf(browserBreakPoint) + 1] || breakPoints[breakPoints.indexOf(browserBreakPoint) - 1];
+						restClassesArr.push(
+							cn.replace(currentBreakPoint, fakeBreakPoint)
+						);
+					} else {
+						restClassesArr.push(cn);
+					}
 				}
 			} else {
 				if (!regCols.test(cn)) {
-					console.log('else', cn);
 					restClassesArr.push(cn);
 				}
 			}
 		}
 	});
-	console.log('totalOutput', [ ...bpClassesArr, ...restClassesArr].join(' ').trim());
 	return [ ...bpClassesArr, ...restClassesArr].join(' ').trim();
-
-
-	// const nearBP = getNearPossibleBreakPoint(breakPoint, className);
-	// const regCn = new RegExp(`.*-${nearBP}-.*`);
-	// const regCnElse = new RegExp(`.*-${breakPoints.join('|')}-.*`);
-	// let bpClassesArr = [];
-	// let restClassesArr = [];
-	// className.split(' ').forEach(cn => {
-	// 	if (regCn.test(cn)) {
-	// 		bpClassesArr.push(nearBP === smallestBreakPoint ? cn : cn.replace(nearBP, smallestBreakPoint));
-	// 		// bpClassesArr.push(cn);
-	// 	} else {
-	// 		if (!regCnElse.test(cn)) restClassesArr.push(cn);
-	// 	}
-	// });
-	// if (bpClassesArr.length > 0) {
-	// 	return [ ...bpClassesArr, ...restClassesArr].join(' ').trim();
-	// } else {
-	// 	return restClassesArr.join(' ').trim();
-	// }
 };

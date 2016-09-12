@@ -14,6 +14,7 @@ class ResponsiveItem extends Component {
 			<div className={newClass}>
 				<h1>{this.props.msg}</h1>
 				<p>current BP - {this.context.breakPoint}</p>
+				<p>current browser BP - {this.context.browserBreakPoint}</p>
 				<p>current className - {newClass}</p>
 				{this.props.children}
 			</div>
