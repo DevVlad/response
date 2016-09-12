@@ -31,7 +31,7 @@ class ResponsiveManager extends Component {
 
 	componentWillReceiveProps(newProps) {
 		const additionalBp = getBreakPoint(newProps.size.width);
-		const browserBreakPoint = getBreakPoint(newProps.browserWidth)
+		const browserBreakPoint = getBreakPoint(newProps.browserWidth);
 		if (additionalBp !== this.state.breakPoint || browserBreakPoint !== this.state.browserBreakPoint) {
 			this.setState({
 				breakPoint: additionalBp,
@@ -41,16 +41,25 @@ class ResponsiveManager extends Component {
 	}
 
 	render() {
-		console.log('-------------- ResponsiveManager-render ', this.props.size.width, this.state.breakPoint, this.state.browserBreakPoint,' ----------------------------');
+		// console.log('lg-min-width', window.matchMedia('(min-width: 1200px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
+		// console.log('md-min-width', window.matchMedia('(min-width: 992px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
+		// console.log('sm-min-width', window.matchMedia('(min-width: 768px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
+		// console.log('xs-min-width', window.matchMedia('(min-width: 767px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
+		// console.log('-----------------------------------------------');
+		// console.log('lg-max-width', window.matchMedia('(max-width: 1200px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
+		// console.log('md-max-width', window.matchMedia('(max-width: 992px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
+		// console.log('sm-max-width', window.matchMedia('(max-width: 768px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
+		// console.log('xs-max-width', window.matchMedia('(max-width: 767px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
+		console.log('-------------- ResponsiveManager-render ', this.state,' ----------------------------');
 		return (
-			<div className="row">
-					<ResponsiveItem className={"col-xs-12 visible-xs-block col-sm-6 col-md-6"} msg={'RespIt 1'}/>
-					<ResponsiveItem className={"col-xs-12 visible-xs-block col-sm-6 col-md-6"} msg={'RespIt 2'}/>
-					<ResponsiveItem className={"col-xs-12 visible-sm-block col-sm-6 col-md-6"} msg={'RespIt 3'}/>
-					<ResponsiveItem className={"col-xs-12 visible-sm-block col-sm-6 col-md-6"} msg={'RespIt 4'}/>
-					<ResponsiveItem className={"col-xs-12 visible-md-block col-sm-6 col-md-4"} msg={'RespIt 5'}/>
-					<ResponsiveItem className={"col-xs-12 visible-md-block col-sm-6 col-md-4"} msg={'RespIt 6'}/>
-					<ResponsiveItem className={"col-xs-12 col-sm-6 col-md-6 col-lg-4"} msg={'Always visible'}/>
+			<div className="row" style={{display: 'visible'}}>
+					<ResponsiveItem className={"col-xs-12 visible-xs-block col-sm-4 col-md-4"} msg={'RespIt 1'}/>
+					<ResponsiveItem className={"col-xs-12 visible-xs-block col-sm-4 col-md-4"} msg={'RespIt 2'}/>
+					<ResponsiveItem className={"col-xs-12 visible-sm-block col-sm-4 col-md-4"} msg={'RespIt 3'}/>
+					<ResponsiveItem className={"col-xs-12 visible-sm-block col-sm-4 col-md-4"} msg={'RespIt 4'}/>
+					<ResponsiveItem className={"col-xs-12 visible-md-block col-md-offset-5 col-sm-4 col-md-4"} msg={'RespIt 5'}/>
+					<ResponsiveItem className={"col-xs-12 visible-md-block col-md-offset-5 col-sm-4 col-md-4"} msg={'RespIt 6'}/>
+					<ResponsiveItem className={"col-xs-12 col-sm-4 col-md-4 col-lg-4"} msg={'Always visible'}/>
 			</div>
 		);
 	}

@@ -10,6 +10,7 @@ class ResponsiveItem extends Component {
 
 	render() {
 		const newClass = convertClassName(this.context.breakPoint, this.context.browserBreakPoint, this.props.className);
+		console.log('child render - ', this.props.msg, newClass);
 		return (
 			<div className={newClass}>
 				<h1>{this.props.msg}</h1>
