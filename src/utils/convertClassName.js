@@ -3,7 +3,7 @@ const colAppendixs = ['offset', 'push', 'pull'];
 const colReplacers = ['visible', 'hidden'];
 const colReplacersAppendixs = ['block', 'inline', 'inline-block'];
 
-const regCols = new RegExp(`col-(${breakPoints.join('|')})-((${colAppendixs.join('|')})-(\d{1,2}))?(\d{1,2})?`);
+const regCols = new RegExp(`col-(${breakPoints.join('|')})-((${colAppendixs.join('|')})-(\\d{1,2}))?(\\d{1,2})?`);
 const regColReplacers = new RegExp(`(${colReplacers.join('|')})-(${breakPoints.join('|')})-(${colReplacersAppendixs.join('|')})`);
 const regBreakPoints = new RegExp(`(${breakPoints.join('|')})`);
 
@@ -19,7 +19,7 @@ const getNearPossibleBreakPoint = (breakPoint, className) => {
 		if (breakPointI > 0) {
 			className.split(' ').forEach(cn => {
 				const isThereAnyLower = prevBreakPoints.test(cn);
-				const lowerBP = /col-(\w+)/.exec(cn)
+				const lowerBP = /col-(\w+)/.exec(cn);
 				if (isThereAnyLower && lowerBP) res = lowerBP[1];
 			});
 		} else {
@@ -31,7 +31,7 @@ const getNearPossibleBreakPoint = (breakPoint, className) => {
 
 export const convertClassName = (breakPoint, browserBreakPoint, className) => {
 	const nearBP = getNearPossibleBreakPoint(breakPoint, className);
-	const regBp = new RegExp(`col-${nearBP}-((${colAppendixs.join('|')})-(\d{1,2}))?(\d{1,2})?`);
+	const regBp = new RegExp(`col-${nearBP}-((${colAppendixs.join('|')})-(\\d{1,2}))?(\\d{1,2})?`);
 	let bpClassesArr = [];
 	let restClassesArr = [];
 	className.split(' ').forEach(cn => {
