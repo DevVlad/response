@@ -19,7 +19,8 @@ const getNearPossibleBreakPoint = (breakPoint, className) => {
 		if (breakPointI > 0) {
 			className.split(' ').forEach(cn => {
 				const isThereAnyLower = prevBreakPoints.test(cn);
-				if (isThereAnyLower) res = /-(\w+)/.exec(cn)[1];
+				const lowerBP = /col-(\w+)/.exec(cn)
+				if (isThereAnyLower && lowerBP) res = lowerBP[1];
 			});
 		} else {
 			res = smallestBreakPoint;
@@ -56,7 +57,8 @@ export const convertClassName = (breakPoint, browserBreakPoint, className) => {
 					const currentBreakPoint = regBreakPoints.exec(cn)[1];
 					let fakeBreakPoint;
 					if (currentBreakPoint === browserBreakPoint) {
-						fakeBreakPoint = breakPoints[breakPoints.indexOf(browserBreakPoint) + 1] || breakPoints[breakPoints.indexOf(browserBreakPoint) - 1];
+						const browserBPIndex = breakPoints.indexOf(browserBreakPoint);
+						fakeBreakPoint = breakPoints[browserBPIndex + 1] || breakPoints[browserBPIndex - 1];
 						restClassesArr.push(
 							cn.replace(currentBreakPoint, fakeBreakPoint)
 						);
