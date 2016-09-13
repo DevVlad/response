@@ -41,15 +41,6 @@ class ResponsiveManager extends Component {
 	}
 
 	render() {
-		// console.log('lg-min-width', window.matchMedia('(min-width: 1200px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
-		// console.log('md-min-width', window.matchMedia('(min-width: 992px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
-		// console.log('sm-min-width', window.matchMedia('(min-width: 768px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
-		// console.log('xs-min-width', window.matchMedia('(min-width: 767px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
-		// console.log('-----------------------------------------------');
-		// console.log('lg-max-width', window.matchMedia('(max-width: 1200px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
-		// console.log('md-max-width', window.matchMedia('(max-width: 992px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
-		// console.log('sm-max-width', window.matchMedia('(max-width: 768px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
-		// console.log('xs-max-width', window.matchMedia('(max-width: 767px)').matches, Math.round(this.props.browserWidth), getBreakPoint(this.props.browserWidth));
 		console.log('-------------- ResponsiveManager-render ', this.state,' ----------------------------');
 		return (
 			<div className="row" style={{display: 'visible'}}>

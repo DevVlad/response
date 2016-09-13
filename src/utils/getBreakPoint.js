@@ -1,7 +1,6 @@
 import { breakPoints } from './convertClassName.js';
 
 export const getBreakPoint = (width) => {
-	// width = Math.round(width);
 	//	values from bootstrap: http://getbootstrap.com/css/#grid
 	if (width >= 1200) {
 		return breakPoints[3];
