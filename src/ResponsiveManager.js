@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react';
 import SizeMe from 'react-sizeme';
 
-import ResponsiveItem from './ResponsiveItem.js';
 import { getBreakPoint } from './utils/getBreakPoint.js';
 
 class ResponsiveManager extends Component {
@@ -42,27 +41,10 @@ class ResponsiveManager extends Component {
 
 	render() {
 		console.log('-------------- ResponsiveManager-render ', this.state,' ----------------------------');
-		return (
-			<div className="row" style={{display: 'visible'}}>
-				{/*Bootstrap*/}
-				{/*}<ResponsiveItem className={"col-xs-12 visible-xs-block col-sm-4 col-md-4"} msg={'RespIt 1'}/>
-				<ResponsiveItem className={"col-xs-12 visible-xs-block col-sm-4 col-md-4"} msg={'RespIt 2'}/>
-				<ResponsiveItem className={"col-xs-12 visible-sm-block col-sm-4 col-md-4"} msg={'RespIt 3'}/>
-				<ResponsiveItem className={"col-xs-12 visible-sm-block col-sm-4 col-md-4"} msg={'RespIt 4'}/>
-				<ResponsiveItem className={"col-xs-12 visible-md-block col-md-offset-5 col-sm-4 col-md-4"} msg={'RespIt 5'}/>
-				<ResponsiveItem className={"col-xs-12 visible-md-block col-md-offset-5 col-sm-4 col-md-4"} msg={'RespIt 6'}/>
-				<ResponsiveItem className={"col-xs-12 col-sm-4 col-md-4 col-lg-4"} msg={'Always visible'}/>*/}
-				{/*Flexboxgrid*/}
-				<ResponsiveItem className={"col-xs-12 last-xs visible-xs col-sm-4 col-md-4"} msg={'RespIt 1'}/>
-				<ResponsiveItem className={"col-xs-12 visible-xs col-sm-4 col-md-4"} msg={'RespIt 2'}/>
-				<ResponsiveItem className={"col-xs-12 last-sm visible-sm col-sm-4 col-md-4"} msg={'RespIt 3'}/>
-				<ResponsiveItem className={"col-xs-12 visible-sm col-sm-4 col-md-4"} msg={'RespIt 4'}/>
-				<ResponsiveItem className={"col-xs-12 last-md visible-md col-md-offset-5 col-sm-4 col-md-4"} msg={'RespIt 5'}/>
-				<ResponsiveItem className={"col-xs-12 visible-md col-md-offset-5 col-sm-4 col-md-4"} msg={'RespIt 6'}/>
-				<ResponsiveItem className={"col-sm-4 col-md-4 col-lg-12 hidden-xs hidden-md hidden-lg"} msg={'sm-visible'}/>
-				<ResponsiveItem className={"col-lg-12 visible-lg"} msg={'lg-visible'}/>
-			</div>
-		);
+		return this.props.children;
+		// return (
+		// 	<div>{this.props.children}</div>
+		// );
 	}
 }
 
