@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'flexboxgrid/css/flexboxgrid.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import SizeMe from 'react-sizeme';
 
 import ResponsiveManager from './ResponsiveManager.js';
@@ -19,18 +20,18 @@ class App extends Component {
 				<div
 					className="container"
 					style={{
-						width: '50%',
+						width: '75%',
 						height: '750px',
 						borderStyle: 'solid',
 						position: 'absolute',
 						left:'10px'
 					}}>
-					<div className="row" style={{height: '50px', zIndex: 10}}>
+					{/*}<div className="row" style={{height: '50px', zIndex: 10}}>
 						<span className="visible-xs-block">xs</span>
 						<span className="visible-sm-block">sm</span>
 						<span className="visible-md-block">md</span>
 						<span className="visible-lg-block">lg</span>
-					</div>
+					</div>*/}
 					<ResponsiveManager browserWidth={this.props.size.width}/>
 				</div>
 			</div>

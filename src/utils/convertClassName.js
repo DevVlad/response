@@ -1,20 +1,13 @@
 export const breakPoints = ['xs', 'sm', 'md', 'lg'];
-const colAppendixs = ['offset', 'push', 'pull'];
-const colReplacers = ['visible', 'hidden'];
-const colReplacersAppendixs = ['block', 'inline', 'inline-block'];
-
-const regCols = new RegExp(`col-(${breakPoints.join('|')})-((${colAppendixs.join('|')})-(\\d{1,2}))?(\\d{1,2})?`);
-const regColReplacers = new RegExp(`(${colReplacers.join('|')})-(${breakPoints.join('|')})-(${colReplacersAppendixs.join('|')})`);
+const smallestBreakPoint = breakPoints[0];
 const regBreakPoints = new RegExp(`(${breakPoints.join('|')})`);
 
-const smallestBreakPoint = breakPoints[0];
-
 const getNearPossibleBreakPoint = (breakPoint, className) => {
-	if (new RegExp(breakPoint).test(className)) {
+	if (new RegExp('col-' + breakPoint).test(className)) {
 		return breakPoint;
 	} else {
 		const breakPointI = breakPoints.indexOf(breakPoint);
-		const prevBreakPoints = new RegExp(`${breakPoints.slice(0, breakPointI).join('|')}`);
+		const prevBreakPoints = new RegExp(`col-${breakPoints.slice(0, breakPointI).join('|')}`);
 		let res;
 		if (breakPointI > 0) {
 			className.split(' ').forEach(cn => {
@@ -29,9 +22,64 @@ const getNearPossibleBreakPoint = (breakPoint, className) => {
 	}
 };
 
-export const convertClassName = (breakPoint, browserBreakPoint, className) => {
+/*
+*	Flexboxgrid version
+*/
+const colAppendixsFBG = ['offset'];
+const colReplacersFBG = ['start', 'center', 'end', 'top', 'middle', 'bottom', 'around', 'between', 'first', 'last'];
+const regColsFBG = new RegExp(`(?:col|${colReplacersFBG.join('|')})-${breakPoints.join('|')}-((${colAppendixsFBG.join('|')})-(\\d{1,2}))?(\\d{1,2})?`);
+
+export const convertClassNameFBG = (breakPoint, browserBreakPoint, className) => {
 	const nearBP = getNearPossibleBreakPoint(breakPoint, className);
-	const regBp = new RegExp(`col-${nearBP}-((${colAppendixs.join('|')})-(\\d{1,2}))?(\\d{1,2})?`);
+	const regBp = new RegExp(`(?:col|${colReplacersFBG.join('|')})-${nearBP}(-(${colAppendixsFBG.join('|')})-(\\d{1,2}))?(-\\d{1,2})?`);
+	const isShown = /visible|hidden/;
+	const classNames = className.split(' ');
+	let bpClassesArr = [];
+	let restClassesArr = [];
+	classNames.forEach(cn => {
+		if (regBp.test(cn)) {
+			bpClassesArr.push(cn.replace(nearBP, smallestBreakPoint));
+		} else {
+			if (isShown.test(cn)) {
+				//	visible or hidden found
+				const visHid = isShown.exec(cn)[0];
+				if (new RegExp(breakPoint).test(cn)) {
+					//	if vis/hid option is for this BP
+					if (visHid === 'hidden') {
+						bpClassesArr.push('no-render');
+					} else {
+						bpClassesArr.push(cn.replace(breakPoint, browserBreakPoint));
+					}
+				} else {
+					if (visHid === 'visible' && classNames.indexOf(`visible-${breakPoint}`) === -1) {
+						bpClassesArr.push('no-render');
+					}
+				}
+			} else {
+				// other classNames
+				if (!regColsFBG.test(cn)) {
+					restClassesArr.push(cn);
+				}
+			}
+		}
+	});
+	const res = [ ...bpClassesArr, ...restClassesArr].join(' ').trim() || 'no-render';
+	return res.match('no-render') ? 'no-render' : res;
+};
+
+/*
+*	bootstrap version
+*/
+const colAppendixsB = ['offset', 'push', 'pull'];
+const colReplacersB = ['visible', 'hidden'];
+const colReplacersAppendixsB = ['block', 'inline', 'inline-block'];
+
+const regColsB = new RegExp(`col-(${breakPoints.join('|')})-((${colAppendixsB.join('|')})-(\\d{1,2}))?(\\d{1,2})?`);
+const regColReplacersB = new RegExp(`(${colReplacersB.join('|')})-(${breakPoints.join('|')})-(${colReplacersAppendixsB.join('|')})`);
+
+export const convertClassNameB = (breakPoint, browserBreakPoint, className) => {
+	const nearBP = getNearPossibleBreakPoint(breakPoint, className);
+	const regBp = new RegExp(`col-${nearBP}-((${colAppendixsB.join('|')})-(\\d{1,2}))?(\\d{1,2})?`);
 	let bpClassesArr = [];
 	let restClassesArr = [];
 	className.split(' ').forEach(cn => {
@@ -48,7 +96,7 @@ export const convertClassName = (breakPoint, browserBreakPoint, className) => {
 			// }
 			bpClassesArr.push(cn.replace(nearBP, smallestBreakPoint));
 		} else {
-			if (regColReplacers.test(cn)) {
+			if (regColReplacersB.test(cn)) {
 				//	visible or hidden found
 				if (new RegExp(nearBP).test(cn)) {
 					//	if vis/hid option is for this BP
@@ -67,7 +115,7 @@ export const convertClassName = (breakPoint, browserBreakPoint, className) => {
 					}
 				}
 			} else {
-				if (!regCols.test(cn)) {
+				if (!regColsB.test(cn)) {
 					restClassesArr.push(cn);
 				}
 			}
